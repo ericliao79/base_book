@@ -1,14 +1,26 @@
 # base ubuntu book
 
-## cp env
+## Requirements
+
+- ansible
+
+mac
+
+```bash
+brew install ansible
+```
+
+## run
+
+1. cp env
 
 ```bash
 cp env.example env
 ```
 
-## update your env ip
+2. update env ip
 
-## run
+3. run it
 
 ```bash
 ansible-playbook -i env playbook.yml
