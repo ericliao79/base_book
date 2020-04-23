@@ -1,0 +1,63 @@
+---
+- hosts: all
+  tasks:
+
+  # install docker
+  - name: Install prerequisites
+    become: true
+    apt:
+      name: ['apt-transport-https', 'ca-certificates', 'curl' ,'software-properties-common', 'zip']
+      update_cache: yes
+
+  - name: Add Docker GPG key
+    become: true
+    apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+
+  - name: Add Docker APT repository
+    become: true
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/{{ansible_distribution|lower}} {{ansible_distribution_release}} stable
+
+  - name: Install Docker
+    become: true
+    apt:
+      name: docker-ce
+      update_cache: yes
+  - name: Install docker compose
+    become: true
+    apt:
+      name: docker-compose
+      update_cache: yes
+  # sudo groupadd docker
+  - name: Add remote "ubuntu" user to "docker" group
+    become: true
+    user:
+      name: ubuntu
+      group: docker
+      append: yes
+
+
+  # install php
+  - name: Add php APT repository
+    become: true
+    apt_repository:
+      repo: ppa:ondrej/php
+  - name: Add php7.2
+    become: true
+    apt:
+      name: ['php7.2-fpm', 'php7.2-curl', 'php7.2-mbstring', 'php7.2-json', 'php7.2-xml', 'php7.2-zip', 'php7.2-gd', 'php7.2-soap', 'php7.2-mysql', 'php7.2-sqlite3']
+      update_cache: yes
+
+  - name: Add zsh
+    become: true
+    apt:
+      name: ['zsh']
+      update_cache: yes
+
+  # install nvm
+  - name: nvm
+    shell: >
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+    args:
+      creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
