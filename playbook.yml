@@ -4,33 +4,33 @@
 
   # install docker
   - name: Install prerequisites
-    #become: true
+    become: true
     apt:
       name: ['apt-transport-https', 'ca-certificates', 'curl' ,'software-properties-common', 'zip']
       update_cache: yes
 
   - name: Add Docker GPG key
-    #become: true
+    become: true
     apt_key: url=https://download.docker.com/linux/ubuntu/gpg
 
   - name: Add Docker APT repository
-    #become: true
+    become: true
     apt_repository:
       repo: deb [arch=amd64] https://download.docker.com/linux/{{ansible_distribution|lower}} {{ansible_distribution_release}} stable
 
   - name: Install Docker
-    #become: true
+    become: true
     apt:
       name: docker-ce
       update_cache: yes
   - name: Install docker compose
-    #become: true
+    become: true
     apt:
       name: docker-compose
       update_cache: yes
   # sudo groupadd docker
   - name: Add remote "ubuntu" user to "docker" group
-    #become: true
+    become: true
     user:
       name: ubuntu
       group: docker
@@ -39,17 +39,17 @@
 
   # install php
   - name: Add php APT repository
-    #become: true
+    become: true
     apt_repository:
       repo: ppa:ondrej/php
   - name: Add php{{ php_version }}
-    #become: true
+    become: true
     apt:
       name: ['php{{ php_version }}-fpm', 'php{{ php_version }}-curl', 'php{{ php_version }}-mbstring', 'php{{ php_version }}-json', 'php{{ php_version }}-xml', 'php{{ php_version }}-zip', 'php{{ php_version }}-gd', 'php{{ php_version }}-soap', 'php{{ php_version }}-mysql', 'php{{ php_version }}-sqlite3']
       update_cache: yes
 
   - name: Add zsh
-    #become: true
+    become: true
     apt:
       name: ['zsh']
       update_cache: yes
@@ -75,4 +75,12 @@
       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
     args:
       creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
+  - name: install golang
+    become: true
+    unarchive:
+      src: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz"
+      dest: /usr/local/bin
+      remote_src: yes
+    
 
