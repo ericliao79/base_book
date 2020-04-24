@@ -54,8 +54,8 @@
       name: ['zsh']
       update_cache: yes
 
-  - name: Backing up existing ~/.zshrc
-    shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc.backing; fi
+  # - name: Backing up existing ~/.zshrc
+  #   shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc{,.orig}; fi
 
   - name: Cloning oh-my-zsh
     git:
@@ -76,11 +76,13 @@
     args:
       creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
 
-  # - name: install golang
-  #   become: true
-  #   unarchive:
-  #     src: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz"
-  #     dest: /usr/local/bin
-  #     remote_src: yes
+  # install golang
+  - name: install golang
+    when: install_go
+    become: true
+    unarchive:
+      src: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz"
+      dest: /usr/local/bin
+      remote_src: yes
     
 
