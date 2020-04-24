@@ -7,7 +7,7 @@
 mac
 
 ```bash
-brew install ansible
+$ brew install ansible
 ```
 
 ## run
@@ -15,7 +15,7 @@ brew install ansible
 1. cp env
 
 ```bash
-cp inventory.example inventory
+$ cp inventory.example inventory
 ```
 
 2. update env ip
@@ -23,5 +23,5 @@ cp inventory.example inventory
 3. run it
 
 ```bash
-ansible-playbook -i inventory playbooks/playbook.yml
+$ ansible-playbook -i inventory playbooks/playbook.yml
 ```
