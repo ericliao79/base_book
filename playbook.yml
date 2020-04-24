@@ -76,11 +76,11 @@
     args:
       creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
 
-  - name: install golang
-    become: true
-    unarchive:
-      src: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz"
-      dest: /usr/local/bin
-      remote_src: yes
+  # - name: install golang
+  #   become: true
+  #   unarchive:
+  #     src: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz"
+  #     dest: /usr/local/bin
+  #     remote_src: yes
     
 
