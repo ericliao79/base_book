@@ -84,5 +84,10 @@
       src: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz"
       dest: /usr/local/bin
       remote_src: yes
+  - name: update zshrc
+    when: install_go
+    shell: >
+      echo "export PATH=$PATH:/usr/local/bin/go/bin" >> ~/.zshrc
+
     
 
