@@ -54,22 +54,20 @@
       name: ['zsh']
       update_cache: yes
 
-  # - name: Backing up existing ~/.zshrc
-  #   shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc.backing; fi
-  #   when: installation|success
+  - name: Backing up existing ~/.zshrc
+    shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc.backing; fi
 
-  - name: Cloning  oh-my-zsh
+  - name: Cloning oh-my-zsh
     git:
       repo=https://github.com/robbyrussell/oh-my-zsh
       dest=~/.oh-my-zsh
-    when: installation|success
     register: cloning
 
   - name: Creating new ~/.zshrc
     copy:
       src=~/.oh-my-zsh/templates/zshrc.zsh-template
       dest=~/.zshrc
-    when: cloning|success
+    # when: cloning|done
 
   # install nvm
   - name: nvm
