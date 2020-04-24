@@ -23,5 +23,5 @@ cp inventory.example inventory
 3. run it
 
 ```bash
-ansible-playbook -i inventory playbook.yml
+ansible-playbook -i inventory playbooks/playbook.yml
 ```
