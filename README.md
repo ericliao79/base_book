@@ -1,4 +1,4 @@
-# base ubuntu book
+# ubuntu ansible base book
 
 ## Requirements
 
@@ -15,7 +15,7 @@ brew install ansible
 1. cp env
 
 ```bash
-cp env.example env
+cp inventory.example inventory
 ```
 
 2. update env ip
@@ -23,5 +23,5 @@ cp env.example env
 3. run it
 
 ```bash
-ansible-playbook -i env playbook.yml
+ansible-playbook -i inventory playbook.yml
 ```

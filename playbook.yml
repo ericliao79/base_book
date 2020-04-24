@@ -4,33 +4,33 @@
 
   # install docker
   - name: Install prerequisites
-    become: true
+    #become: true
     apt:
       name: ['apt-transport-https', 'ca-certificates', 'curl' ,'software-properties-common', 'zip']
       update_cache: yes
 
   - name: Add Docker GPG key
-    become: true
+    #become: true
     apt_key: url=https://download.docker.com/linux/ubuntu/gpg
 
   - name: Add Docker APT repository
-    become: true
+    #become: true
     apt_repository:
       repo: deb [arch=amd64] https://download.docker.com/linux/{{ansible_distribution|lower}} {{ansible_distribution_release}} stable
 
   - name: Install Docker
-    become: true
+    #become: true
     apt:
       name: docker-ce
       update_cache: yes
   - name: Install docker compose
-    become: true
+    #become: true
     apt:
       name: docker-compose
       update_cache: yes
   # sudo groupadd docker
   - name: Add remote "ubuntu" user to "docker" group
-    become: true
+    #become: true
     user:
       name: ubuntu
       group: docker
@@ -39,24 +39,24 @@
 
   # install php
   - name: Add php APT repository
-    become: true
+    #become: true
     apt_repository:
       repo: ppa:ondrej/php
-  - name: Add php7.2
-    become: true
+  - name: Add php{{ php_version }}
+    #become: true
     apt:
-      name: ['php7.2-fpm', 'php7.2-curl', 'php7.2-mbstring', 'php7.2-json', 'php7.2-xml', 'php7.2-zip', 'php7.2-gd', 'php7.2-soap', 'php7.2-mysql', 'php7.2-sqlite3']
+      name: ['php{{ php_version }}-fpm', 'php{{ php_version }}-curl', 'php{{ php_version }}-mbstring', 'php{{ php_version }}-json', 'php{{ php_version }}-xml', 'php{{ php_version }}-zip', 'php{{ php_version }}-gd', 'php{{ php_version }}-soap', 'php{{ php_version }}-mysql', 'php{{ php_version }}-sqlite3']
       update_cache: yes
 
   - name: Add zsh
-    become: true
+    #become: true
     apt:
       name: ['zsh']
       update_cache: yes
 
-  - name: Backing up existing ~/.zshrc
-    shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc.backing; fi
-    when: installation|success
+  # - name: Backing up existing ~/.zshrc
+  #   shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc.backing; fi
+  #   when: installation|success
 
   - name: Cloning  oh-my-zsh
     git:
