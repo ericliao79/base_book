@@ -87,7 +87,7 @@
   - name: update zshrc
     when: install_go
     shell: >
-      echo "export PATH=$PATH:/usr/local/bin/go/bin" >> ~/.zshrc
+      echo "export PATH=$PATH:/usr/local/bin/go/bin" >> ~/.profile
 
     
 
