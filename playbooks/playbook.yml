@@ -89,5 +89,10 @@
     shell: >
       echo "export PATH=$PATH:/usr/local/bin/go/bin" >> ~/.profile
 
-    
+  - name: install nginx
+    when: install_nginx
+    become: true
+    apt:
+      name: ['nginx']
+      update_cache: yes
 

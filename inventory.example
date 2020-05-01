@@ -5,3 +5,4 @@ ip ansible_port=22 ansible_user=ubuntu
 php_version=7.2
 go_version=1.14
 install_go=false
+install_nginx=false
