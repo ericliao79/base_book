@@ -45,7 +45,7 @@
   - name: Add php{{ php_version }}
     become: true
     apt:
-      name: ['php{{ php_version }}-fpm', 'php{{ php_version }}-curl', 'php{{ php_version }}-mbstring', 'php{{ php_version }}-json', 'php{{ php_version }}-xml', 'php{{ php_version }}-zip', 'php{{ php_version }}-gd', 'php{{ php_version }}-soap', 'php{{ php_version }}-mysql', 'php{{ php_version }}-sqlite3']
+      name: ['php{{ php_version }}-fpm', 'php{{ php_version }}-curl', 'php{{ php_version }}-mbstring', 'php{{ php_version }}-json', 'php{{ php_version }}-xml', 'php{{ php_version }}-zip', 'php{{ php_version }}-gd', 'php{{ php_version }}-soap', 'php{{ php_version }}-mysql', 'php{{ php_version }}-sqlite3', 'php{{php_version}}-dev']
       update_cache: yes
 
   - name: Add zsh
@@ -89,6 +89,8 @@
     shell: >
       echo "export PATH=$PATH:/usr/local/bin/go/bin" >> ~/.profile
 
+
+# install nginx
   - name: install nginx
     when: install_nginx
     become: true
