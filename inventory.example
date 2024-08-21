@@ -2,7 +2,8 @@
 ip ansible_port=22 ansible_user=ubuntu
 
 [ubuntu:vars]
-php_version=7.2
-go_version=1.14
+php_version=8.2
+go_version=1.23.0
 install_go=false
 install_nginx=false
+nvm_version=v0.40.0

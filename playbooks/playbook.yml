@@ -37,12 +37,12 @@
     #    update_cache: yes
 
     # sudo groupadd docker
-    #- name: Add remote "ubuntu" user to "docker" group
-    #  become: true
-    #  user:
-    #   name: ubuntu
-    #    group: docker
-    #    append: yes
+    - name: Add remote "ubuntu" user to "docker" group
+      become: true
+      user:
+        name: ubuntu
+        group: docker
+        append: yes
 
     # install php
     - name: Add php APT repository
@@ -88,10 +88,10 @@
         dest=~/.zshrc
       # when: cloning|done
 
-    # install nvm
+    # install nvm {{ nvm_version }}/.nvm/nvm.sh
     - name: nvm
       shell: >
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/install.sh | bash
       args:
         creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
 
