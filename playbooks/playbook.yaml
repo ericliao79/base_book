@@ -80,10 +80,10 @@
         dest=~/.oh-my-zsh
       register: cloning
 
-    - name: Creating new ~/.zshrc
-      copy: src=~/.oh-my-zsh/templates/zshrc.zsh-template
-        dest=~/.zshrc
-      when: cloning|done
+    # - name: Creating new ~/.zshrc
+    #   copy: src=~/.oh-my-zsh/templates/zshrc.zsh-template
+    #     dest=~/.zshrc
+    #   when: cloning|done
 
     ######## nvm
     - name: nvm
