@@ -1,7 +1,6 @@
 ---
 - hosts: all
   tasks:
-    # install docker
     - name: Install prerequisites
       become: true
       apt:
@@ -15,7 +14,9 @@
           ]
         update_cache: yes
 
+    ######## install docker
     - name: Add Docker GPG key
+      when: install_docker
       become: true
       apt_key: url=https://download.docker.com/linux/ubuntu/gpg
 
@@ -25,31 +26,29 @@
         repo: deb [arch=amd64] https://download.docker.com/linux/{{ansible_distribution|lower}} {{ansible_distribution_release}} stable
 
     - name: Install Docker
+      when: install_docker
       become: true
       apt:
         name: docker-ce
         update_cache: yes
 
-    #- name: Install docker compose
-    #  become: true
-    #  apt:
-    #    name: docker-compose
-    #    update_cache: yes
-
     # sudo groupadd docker
     - name: Add remote "ubuntu" user to "docker" group
+      when: install_docker
       become: true
       user:
         name: ubuntu
         group: docker
         append: yes
 
-    # install php
+    ######## install php
     - name: Add php APT repository
+      when: install_php
       become: true
       apt_repository:
         repo: ppa:ondrej/php
     - name: Add php{{ php_version }}
+      when: install_php
       become: true
       apt:
         name:
@@ -69,14 +68,12 @@
           ]
         update_cache: yes
 
+    ######## zsh
     - name: Add zsh
       become: true
       apt:
         name: ["zsh"]
         update_cache: yes
-
-    # - name: Backing up existing ~/.zshrc
-    #   shell: if [ -f ~/.zshrc ]; then mv ~/.zshrc{,.orig}; fi
 
     - name: Cloning oh-my-zsh
       git: repo=https://github.com/robbyrussell/oh-my-zsh
@@ -86,16 +83,18 @@
     - name: Creating new ~/.zshrc
       copy: src=~/.oh-my-zsh/templates/zshrc.zsh-template
         dest=~/.zshrc
-      # when: cloning|done
+      when: cloning|done
 
-    # install nvm {{ nvm_version }}/.nvm/nvm.sh
+    ######## nvm
     - name: nvm
+      when: install_nvm
+      become: true
       shell: >
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/install.sh | bash
       args:
         creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
 
-    # install golang
+    ######## golang
     - name: install golang
       when: install_go
       become: true
@@ -108,7 +107,7 @@
       shell: >
         echo "export PATH=$PATH:/usr/local/bin/go/bin" >> ~/.profile
 
-    # install nginx
+    ######## nginx
     - name: install nginx
       when: install_nginx
       become: true

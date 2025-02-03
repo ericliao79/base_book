@@ -1,9 +1,12 @@
 [ubuntu]
-ip ansible_port=22 ansible_user=ubuntu
+ip ansible_port=22 ansible_user=ubuntu ansible_ssh_private_key_file=""
 
 [ubuntu:vars]
-php_version=8.2
-go_version=1.23.0
+php_version=8.4
+go_version=1.23.5
+install_php=true
 install_go=false
 install_nginx=false
-nvm_version=v0.40.0
+install_docker=true
+install_nvm=true
+nvm_version=v0.40.1

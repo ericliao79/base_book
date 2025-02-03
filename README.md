@@ -12,16 +12,21 @@ brew install ansible
 
 ## run
 
-1. cp env
+- cp env
 
 ```bash
 cp inventory.example inventory
 ```
 
-2. update env ip
-
-3. run it
+- update env ip
 
 ```bash
-ansible-playbook -i inventory playbooks/playbook.yml
+[ubuntu]
+192.168.70.127 ansible_port=22 ansible_user=ubuntu
+```
+
+- run it
+
+```bash
+ansible-playbook -i inventory playbooks/playbook.yaml
 ```
